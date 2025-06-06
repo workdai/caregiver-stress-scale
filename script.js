@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 4. 把 q1~q14 和 total 傳到 Google Apps Script
     const scriptURL =
-      "https://script.google.com/macros/s/1AC6O158J4NmZ2VPJM7x4Qr97YNFglgzXkaekBzxULgI/exec";
+      "https://script.google.com/macros/s/AKfycbwPADYJqn0DYOzIkb1QEP0F9lKpiBU_b0cLaU5vhXyfY-wvzEaSfIlFG26EUiTF-iVFVg/exec";
 
     const formData = new FormData();
     for (let i = 1; i <= 14; i++) {
