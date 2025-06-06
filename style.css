@@ -1,0 +1,99 @@
+/*─── style.css ───*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.instructions {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+fieldset label {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 0.95rem;
+}
+
+button#submitBtn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button#submitBtn:hover {
+  background-color: #0056b3;
+}
+
+/* 隱藏結果區塊 */
+.hidden {
+  display: none;
+}
+
+/* 顯示結果區塊後的標題與文字 */
+#resultArea h2 {
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+#scoreText {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.advice {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+  padding: 0 8px;
+}
+
+.source {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: right;
+}
