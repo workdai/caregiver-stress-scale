@@ -1,99 +1,116 @@
-/*─── style.css ───*/
-* {
-  box-sizing: border-box;
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",Arial,sans-serif;
+  background:#f5f7fb;
+  margin:0;
+  padding:0;
 }
 
-body {
-  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+.container{
+  max-width:760px;
+  margin:auto;
+  padding:24px;
+  background:white;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  border-radius:10px;
+  margin-top:40px;
 }
 
-.container {
-  max-width: 600px;
-  margin: 30px auto;
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+h1{
+  text-align:center;
+  margin-bottom:20px;
 }
 
-h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 16px;
+.question{
+  margin-bottom:22px;
+  padding-bottom:12px;
+  border-bottom:1px solid #eee;
 }
 
-.instructions {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 24px;
+.question p{
+  font-weight:600;
+  margin-bottom:8px;
 }
 
-fieldset {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 12px;
-  margin-bottom: 16px;
+label{
+  display:block;
+  margin:4px 0;
+  cursor:pointer;
 }
 
-legend {
-  font-weight: 600;
-  padding: 0 4px;
+button{
+  margin-top:20px;
+  padding:12px 18px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  background:#4a6cf7;
+  color:white;
+  transition:background 0.2s;
 }
 
-fieldset label {
-  display: inline-block;
-  margin-right: 12px;
-  font-size: 0.95rem;
+button:hover{
+  background:#3c57d6;
 }
 
-button#submitBtn {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  font-size: 1.1rem;
-  background-color: #0080FF;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+#submitContactBtn{
+  background:#2e9c5d;
 }
 
-button#submitBtn:hover {
-  background-color: #0056b3;
+#submitContactBtn:hover{
+  background:#24824c;
 }
 
-/* 隱藏結果區塊 */
-.hidden {
-  display: none;
+input[type="text"],
+input[type="tel"]{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  margin-bottom:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:14px;
 }
 
-/* 顯示結果區塊後的標題與文字 */
-#resultArea h2 {
-  text-align: center;
-  margin-top: 24px;
-  margin-bottom: 12px;
-  color: #333;
+#resultSection{
+  margin-top:30px;
+  padding:16px;
+  background:#f0f6ff;
+  border-radius:8px;
 }
 
-#scoreText {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-bottom: 8px;
+#scoreText{
+  font-size:20px;
+  font-weight:700;
 }
 
-.advice {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
-  padding: 0 8px;
+#levelText{
+  font-size:18px;
+  margin-top:8px;
 }
 
-.source {
-  margin-top: 16px;
-  font-size: 0.85rem;
-  color: #666;
-  text-align: right;
+#resultDescription{
+  margin-top:10px;
+  line-height:1.6;
+}
+
+#contactSection{
+  margin-top:28px;
+  padding:16px;
+  background:#f9f9f9;
+  border-radius:8px;
+}
+
+@media (max-width:600px){
+
+.container{
+  margin:0;
+  border-radius:0;
+  box-shadow:none;
+}
+
+button{
+  width:100%;
+}
+
 }
