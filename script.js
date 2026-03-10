@@ -1,66 +1,148 @@
-// script.js
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwbl-1m-cgmUrGf6T6ig44Uobtl25j9zez2BoAiVF1Ko7kLaMHQaPdErTIx7QoFEmIYXA/exec";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("stressForm");
-  const resultArea = document.getElementById("resultArea");
-  const scoreText = document.getElementById("scoreText");
-  const adviceText = document.getElementById("adviceText");
+let currentRecordId = "";
+let currentScore = 0;
 
-  // 三段建議文字（可依需求自行更改）
-  const adviceLow =
-    "總分 0–13：您適應得很好，但是照顧的路是很漫長的，請繼續保持下去，加油！";
-  const adviceMid =
-    "總分 14–25：您已開始出現一些壓力警訊，建議您利用社會資源來減輕照顧壓力，主動打電話詢問有哪些服務可以解決您的困擾。";
-  const adviceHigh =
-    "總分 26–42：您目前承受著相當沉重的負擔，強烈建議您立即尋求家人、親友或社會資源的協助，以確保您及被照顧者都能有良好的生活品質。";
+document.getElementById("showResultBtn").addEventListener("click", async function () {
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  const answers = getAnswers();
+  if (!answers) return;
 
-    // 1. 計算 total（q1 ~ q14）
-    let total = 0;
-    for (let i = 1; i <= 14; i++) {
-      const choice = form.querySelector(`input[name="q${i}"]:checked`);
-      total += Number(choice.value);
-    }
+  const website = document.getElementById("website").value.trim();
 
-    // 2. 根據 total 選擇建議文字
-    let advice = "";
-    if (total <= 13) {
-      advice = adviceLow;
-    } else if (total <= 25) {
-      advice = adviceMid;
-    } else {
-      advice = adviceHigh;
-    }
+  currentScore = answers.reduce((sum, val) => sum + Number(val), 0);
 
-    // 3. 在畫面上顯示分數與建議
-    scoreText.textContent = "您的總分是 " + total + " 分";
-    adviceText.textContent = advice;
-    resultArea.classList.remove("hidden");
-    resultArea.scrollIntoView({ behavior: "smooth" });
+  try {
 
-    // 4. 把 q1~q14 和 total 傳到 Google Apps Script
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbwPADYJqn0DYOzIkb1QEP0F9lKpiBU_b0cLaU5vhXyfY-wvzEaSfIlFG26EUiTF-iVFVg/exec";
-
-    const formData = new FormData();
-    for (let i = 1; i <= 14; i++) {
-      const val = form.querySelector(`input[name="q${i}"]:checked`).value;
-      formData.append("q" + i, val);
-    }
-    formData.append("total", total);
-
-    fetch(scriptURL, {
+    const response = await fetch(GAS_URL, {
       method: "POST",
-      mode: "no-cors",
-      body: formData,
-    })
-      .then(() => {
-        console.log("回應已寫入 Google Sheet");
+      body: JSON.stringify({
+        action: "submitQuiz",
+        answers: answers,
+        score: currentScore,
+        website: website
       })
-      .catch((err) => {
-        console.error("寫入失敗：", err);
-      });
-  });
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      alert(result.message || "送出失敗");
+      return;
+    }
+
+    currentRecordId = result.recordId;
+
+    showResult(currentScore);
+
+    document.getElementById("resultSection").style.display = "block";
+    document.getElementById("contactSection").style.display = "block";
+
+    document.getElementById("resultSection").scrollIntoView({
+      behavior: "smooth"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+    alert("系統錯誤，請稍後再試");
+
+  }
+
 });
+
+
+document.getElementById("submitContactBtn").addEventListener("click", async function () {
+
+  if (!currentRecordId) {
+    alert("找不到填答紀錄");
+    return;
+  }
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const checkAnswer = document.getElementById("checkAnswer").value.trim();
+
+  try {
+
+    const response = await fetch(GAS_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        action: "submitContact",
+        recordId: currentRecordId,
+        name: name,
+        phone: phone,
+        checkAnswer: checkAnswer
+      })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+      alert(result.message || "送出失敗");
+      return;
+    }
+
+    alert("聯絡資料已送出，謝謝您");
+    document.getElementById("submitContactBtn").disabled = true;
+
+  } catch (error) {
+
+    console.error(error);
+    alert("系統錯誤，請稍後再試");
+
+  }
+
+});
+
+
+function getAnswers() {
+
+  const answers = [];
+
+  for (let i = 1; i <= 14; i++) {
+
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+
+    if (!checked) {
+      alert(`第 ${i} 題尚未作答`);
+      return null;
+    }
+
+    answers.push(Number(checked.value));
+
+  }
+
+  return answers;
+
+}
+
+
+function showResult(score) {
+
+  document.getElementById("scoreText").textContent = `您的總分：${score} 分`;
+
+  let level = "";
+  let description = "";
+
+  if (score <= 13) {
+
+    level = "調適得很好";
+    description = "目前整體狀況仍在可調適範圍內。";
+
+  } else if (score <= 25) {
+
+    level = "壓力徵兆";
+    description = "您已出現一些照顧壓力徵兆，建議適時休息並尋求支持。";
+
+  } else {
+
+    level = "承受沉重負擔";
+    description = "您目前可能正承受較高程度的照顧壓力，建議尋求協助。";
+
+  }
+
+  document.getElementById("levelText").textContent = `結果：${level}`;
+  document.getElementById("resultDescription").textContent = description;
+
+}
