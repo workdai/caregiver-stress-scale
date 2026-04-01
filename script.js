@@ -1,4 +1,5 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbwbl-1m-cgmUrGf6T6ig44Uobtl25j9zez2BoAiVF1Ko7kLaMHQaPdErTIx7QoFEmIYXA/exec";
+const NOTIFY_EMAIL = "xiang_liu@familycare.org.tw";
 
 let currentRecordId = "";
 let currentScore = 0;
@@ -62,6 +63,10 @@ document.getElementById("submitContactBtn").addEventListener("click", async func
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const checkAnswer = document.getElementById("checkAnswer").value.trim();
+  const consultQuestion = document.getElementById("consultQuestion").value.trim();
+
+  const contactTimeEl = document.querySelector('input[name="contactTime"]:checked');
+  const contactTime = contactTimeEl ? contactTimeEl.value : "";
 
   try {
 
@@ -72,7 +77,10 @@ document.getElementById("submitContactBtn").addEventListener("click", async func
         recordId: currentRecordId,
         name: name,
         phone: phone,
-        checkAnswer: checkAnswer
+        checkAnswer: checkAnswer,
+        contactTime: contactTime,
+        consultQuestion: consultQuestion,
+        notifyEmail: NOTIFY_EMAIL
       })
     });
 

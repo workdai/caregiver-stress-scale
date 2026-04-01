@@ -17,7 +17,7 @@
       <p class="hero-desc" style="font-size: 16px; line-height: 1.5;">請依近況勾選，系統將針對評估結果提供相應建議。</p>
       <p class="hero-desc" style="font-size: 16px; line-height: 1.5;">提醒您：若情緒低落、睡眠或食慾異常狀況已持續兩週以上，請務必尋求專業協助。</p>
       <p class="hero-desc" style="font-size: 16px; line-height: 1.5;">您可撥打家庭照顧者關懷專線0800-50-7272，或於測驗最後留下聯絡資訊，由專業人員後續追蹤關懷。</p>
-      <p class="hero-desc"; line-height: 1.8;"> </p>    
+      <p class="hero-desc" style="line-height: 1.8;"> </p>    
       <div class="hero-meta">資料來源：中華民國家庭照顧者關懷總會</div>
     </section>
 
@@ -228,10 +228,25 @@
       </p>
 
       <label class="field-label" for="name">姓名</label>
-      <input type="text" id="name" class="text-input" placeholder="可填姓名或暱稱">
+      <input type="text" id="name" class="text-input">
 
       <label class="field-label" for="phone">聯絡電話</label>
       <input type="tel" id="phone" class="text-input" placeholder="例如 0912-345-678">
+
+      <label class="field-label">方便聯絡時間</label>
+      <div class="time-options">
+        <label class="option-pill time-pill">
+          <input type="radio" name="contactTime" value="09:00-12:00">
+          <span>09:00－12:00</span>
+        </label>
+        <label class="option-pill time-pill">
+          <input type="radio" name="contactTime" value="13:30-18:00">
+          <span>13:30－18:00</span>
+        </label>
+      </div>
+
+      <label class="field-label" for="consultQuestion">請說明想要諮詢的問題</label>
+      <textarea id="consultQuestion" class="text-input text-area" placeholder="請簡短說明您想諮詢的內容"></textarea>
 
       <label class="field-label" for="checkAnswer">請輸入 5 + 3 的答案（驗證用，確認非機器人）</label>
       <input type="text" id="checkAnswer" class="text-input" placeholder="請輸入數字">
@@ -243,4 +258,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
