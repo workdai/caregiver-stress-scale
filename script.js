@@ -62,6 +62,7 @@ document.getElementById("submitContactBtn").addEventListener("click", async func
 
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
   const checkAnswer = document.getElementById("checkAnswer").value.trim();
   const consultQuestion = document.getElementById("consultQuestion").value.trim();
 
@@ -77,6 +78,7 @@ document.getElementById("submitContactBtn").addEventListener("click", async func
         recordId: currentRecordId,
         name: name,
         phone: phone,
+        email: email,
         checkAnswer: checkAnswer,
         contactTime: contactTime,
         consultQuestion: consultQuestion,
